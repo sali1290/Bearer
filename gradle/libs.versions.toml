@@ -10,6 +10,7 @@ composeBom = "2024.06.00"
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.22"
 retrofit = "2.11.0"
+map = "4.3.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +33,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 
+maps-android = { module = "com.google.maps.android:maps-compose", version.ref = "map" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
