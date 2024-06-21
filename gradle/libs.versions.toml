@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.0"
+androidMapsUtils = "3.4.0"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -9,6 +10,8 @@ activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.22"
+playServicesLocation = "21.3.0"
+playServicesMaps = "18.2.0"
 retrofit = "2.11.0"
 map = "5.0.3"
 
@@ -34,6 +37,8 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
 
 maps-android = { module = "com.google.maps.android:maps-compose", version.ref = "map" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

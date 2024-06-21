@@ -76,4 +76,6 @@ dependencies {
     implementation(libs.converter.moshi)
 
     implementation(libs.maps.android)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
 }
