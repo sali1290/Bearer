@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.MarkerState
 
+// Permissions already granted in DetermineFirstScreen
 @SuppressLint("MissingPermission")
 fun getUserCurrentLocation(
     context: Context,

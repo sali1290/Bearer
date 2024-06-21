@@ -29,7 +29,7 @@ fun DestinationMenu(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 15.dp, vertical = 20.dp),
+            .padding(horizontal = 15.dp, vertical = 50.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         Row(

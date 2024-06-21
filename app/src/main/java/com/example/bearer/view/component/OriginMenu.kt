@@ -27,7 +27,7 @@ fun OriginMenu(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(end = 15.dp, start = 15.dp, top = 10.dp, bottom = 30.dp),
+            .padding(horizontal = 15.dp, vertical = 50.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         Row(
@@ -36,7 +36,6 @@ fun OriginMenu(
                 .height(40.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             CustomButton(
                 text = "Choose origin",
                 modifier = Modifier.fillMaxWidth(0.83f),
