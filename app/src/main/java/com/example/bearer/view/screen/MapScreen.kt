@@ -8,10 +8,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.bearer.R
 import com.example.bearer.view.component.OriginMenu
+import com.example.bearer.view.utils.getUserCurrentLocation
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -25,6 +27,7 @@ import com.google.maps.android.compose.rememberMarkerState
 
 @Composable
 fun MapScreen() {
+    val context = LocalContext.current
     val tehran = LatLng(35.7219, 51.3347)
     val cameraPositionState =
         rememberCameraPositionState {
@@ -45,7 +48,9 @@ fun MapScreen() {
     ) {
         ShowMarker(markerState = markerState, isMarkerVisible = isMarkerVisible)
     }
-    OriginMenu(onCurrentLocationClickListener = {}, onConfirmLocationClickListener = {})
+    OriginMenu(onCurrentLocationClickListener = {
+        getUserCurrentLocation(context, markerState, cameraPositionState)
+    }, onConfirmLocationClickListener = {})
 }
 
 @Composable

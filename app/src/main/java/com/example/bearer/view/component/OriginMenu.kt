@@ -27,7 +27,7 @@ fun OriginMenu(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 15.dp, vertical = 20.dp),
+            .padding(end = 15.dp, start = 15.dp, top = 10.dp, bottom = 30.dp),
         contentAlignment = Alignment.BottomCenter
     ) {
         Row(

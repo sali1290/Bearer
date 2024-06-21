@@ -6,12 +6,18 @@ import android.widget.Toast
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.maps.android.compose.CameraPositionState
+import com.google.maps.android.compose.MarkerState
 
 @SuppressLint("MissingPermission")
-fun getUserCurrentLocation(context: Context): LatLng {
-    var latLng = LatLng(0.0, 0.0)
+fun getUserCurrentLocation(
+    context: Context,
+    currentLocation: MarkerState,
+    cameraPositionState: CameraPositionState
+) {
     val fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
 
@@ -19,7 +25,9 @@ fun getUserCurrentLocation(context: Context): LatLng {
         Priority.PRIORITY_HIGH_ACCURACY,
         CancellationTokenSource().token
     ).addOnSuccessListener {
-        latLng = LatLng(it.latitude, it.longitude)
+        currentLocation.position = LatLng(it.latitude, it.longitude)
+        cameraPositionState.position =
+            CameraPosition.fromLatLngZoom(LatLng(it.latitude, it.longitude), 15f)
     }.addOnFailureListener { exception ->
         Toast.makeText(
             context,
@@ -27,5 +35,4 @@ fun getUserCurrentLocation(context: Context): LatLng {
             Toast.LENGTH_LONG
         ).show()
     }
-    return latLng
 }
