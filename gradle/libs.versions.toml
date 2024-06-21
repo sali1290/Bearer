@@ -10,7 +10,7 @@ composeBom = "2024.06.00"
 hilt = "2.51.1"
 ksp = "2.0.0-1.0.22"
 retrofit = "2.11.0"
-map = "4.3.3"
+map = "5.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
