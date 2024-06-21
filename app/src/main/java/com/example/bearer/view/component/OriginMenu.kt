@@ -1,5 +1,6 @@
 package com.example.bearer.view.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,13 +8,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.bearer.R
+import com.example.bearer.view.theme.Blue
 
 @Composable
-fun OriginMenu() {
+fun OriginMenu(
+    onCurrentLocationClickListener: () -> Unit,
+    onConfirmLocationClickListener: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -26,12 +36,24 @@ fun OriginMenu() {
                 .height(40.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             CustomButton(
                 text = "Choose origin",
-                modifier = Modifier.fillMaxWidth(0.83f)
-            ) {}
+                modifier = Modifier.fillMaxWidth(0.83f),
+                onClick = onConfirmLocationClickListener
+            )
+
             Spacer(modifier = Modifier.padding(10.dp))
-            CurrentLocationButton {}
+
+            IconButton(
+                modifier = Modifier.background(color = Blue, shape = CircleShape),
+                onClick = onCurrentLocationClickListener
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.gps),
+                    contentDescription = "gps icon"
+                )
+            }
         }
     }
 }
