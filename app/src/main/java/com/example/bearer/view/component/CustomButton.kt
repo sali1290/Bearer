@@ -12,8 +12,13 @@ import androidx.compose.ui.graphics.Color
 import com.example.bearer.view.theme.Blue
 
 @Composable
-fun CustomButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
-    Card(onClick = onClick, modifier = modifier) {
+fun CustomButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    Card(onClick = onClick, modifier = modifier, enabled = enabled) {
         Box(
             modifier = Modifier
                 .fillMaxSize()

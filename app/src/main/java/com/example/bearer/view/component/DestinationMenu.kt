@@ -40,16 +40,16 @@ fun DestinationMenu(
         ) {
             CustomButton(
                 text = "Back",
-                modifier = Modifier.fillMaxWidth(0.20f),
+                modifier = Modifier.fillMaxWidth(0.25f),
                 onClick = onBackClickListener
             )
-            Spacer(modifier = Modifier.padding(10.dp))
+            Spacer(modifier = Modifier.padding(5.dp))
             CustomButton(
-                text = "Choose origin",
-                modifier = Modifier.fillMaxWidth(0.73f),
+                text = "Choose destination",
+                modifier = Modifier.fillMaxWidth(0.80f),
                 onClick = onConfirmLocationClickListener
             )
-            Spacer(modifier = Modifier.padding(10.dp))
+            Spacer(modifier = Modifier.padding(15.dp))
 
             IconButton(
                 modifier = Modifier.background(color = Blue, shape = CircleShape),
