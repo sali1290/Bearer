@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.google.service)
 }
 
 android {
@@ -11,7 +12,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.bearer"
+        applicationId = "co.seyco.uber4things"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -79,4 +80,6 @@ dependencies {
     implementation(libs.maps.android)
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
+
+    implementation(libs.firebase.firestore)
 }

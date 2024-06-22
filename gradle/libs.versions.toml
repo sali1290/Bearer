@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.0"
+firestoreVersion = "25.0.0"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -14,6 +15,7 @@ playServicesLocation = "21.3.0"
 playServicesMaps = "18.2.0"
 retrofit = "2.11.0"
 map = "5.0.3"
+googleService = "4.4.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,6 +26,8 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+
+firebase-firestore = { module = "com.google.firebase:firebase-firestore", version.ref = "firestoreVersion" }
 
 # Compose
 androidx-material3 = { module = "androidx.compose.material3:material3" }
@@ -47,3 +51,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+google-service = { id = "com.google.gms.google-services", version.ref = "googleService"}
