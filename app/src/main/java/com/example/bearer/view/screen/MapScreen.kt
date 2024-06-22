@@ -15,6 +15,7 @@ import com.example.bearer.view.component.CustomMarker
 import com.example.bearer.view.component.DestinationMenu
 import com.example.bearer.view.component.OriginMenu
 import com.example.bearer.view.component.ParcelTypeMenu
+import com.example.bearer.view.utils.calculateMiddlePosition
 import com.example.bearer.view.utils.getUserCurrentLocation
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -22,6 +23,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
 import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 
@@ -72,6 +74,14 @@ fun MapScreen() {
                 iconId = R.drawable.destination_pin
             )
         }
+
+        if (step == 2) {
+            // Calculates middle position of polyline and sets it as center of map
+            cameraPositionState.position = CameraPosition.fromLatLngZoom(
+                calculateMiddlePosition(origin.position, destination.position), 13.5f
+            )
+            Polyline(points = listOf(origin.position, destination.position))
+        }
     }
 
     AnimatedContent(targetState = step, label = "Menus") { targetState ->
@@ -98,8 +108,6 @@ fun MapScreen() {
                     onBackClickListener = { step-- },
                     onNextClickListener = { /* Todo */ })
             }
-
-
         }
     }
 }
