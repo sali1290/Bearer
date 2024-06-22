@@ -14,6 +14,7 @@ import com.example.bearer.R
 import com.example.bearer.view.component.CustomMarker
 import com.example.bearer.view.component.DestinationMenu
 import com.example.bearer.view.component.OriginMenu
+import com.example.bearer.view.component.ParcelTypeMenu
 import com.example.bearer.view.utils.getUserCurrentLocation
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -90,6 +91,15 @@ fun MapScreen() {
                 },
                 onConfirmLocationClickListener = { step++ }
             )
+
+            2 -> {
+                ParcelTypeMenu(
+                    isNextButtonEnabled = false,
+                    onBackClickListener = { step-- },
+                    onNextClickListener = { /* Todo */ })
+            }
+
+
         }
     }
 }
