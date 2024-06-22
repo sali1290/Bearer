@@ -13,6 +13,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +30,7 @@ fun ParcelTypeMenu(
     onNextClickListener: () -> Unit,
     isNextButtonEnabled: Boolean
 ) {
+    var selectedItem by remember { mutableIntStateOf(-1) }
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         Column(
@@ -50,13 +55,16 @@ fun ParcelTypeMenu(
                     .weight(0.8f)
                     .background(color = DarkPurple)
             ) {
-                items(3) {
+                items(3) { index ->
                     ParcelItem(
                         imageUrl = "",
                         title = "Envelop",
                         weight = "0.5 kg- 1.5 kg",
-                        description = "34 x 27 x 4 cm max"
-                    )
+                        description = "34 x 27 x 4 cm max",
+                        selected = selectedItem == index
+                    ) {
+                        selectedItem = index
+                    }
                 }
             }
             Row(

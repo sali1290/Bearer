@@ -3,6 +3,7 @@ package com.example.bearer.view.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,14 +29,18 @@ fun ParcelItem(
     imageUrl: String,
     title: String,
     weight: String,
-    description: String
+    description: String,
+    selected: Boolean = false,
+    onItemClicked: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = DarkPurple)
             .height(80.dp)
-            .padding(5.dp),
+            .clickable { onItemClicked() }
+            .padding(5.dp)
+            .border(width = 1.dp, if (selected) Color.LightGray else DarkPurple),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -69,7 +74,7 @@ fun ParcelItemPreview(modifier: Modifier = Modifier) {
         title = "Envelop",
         weight = "0.5 kg- 1.5 kg",
         description = "34 x 27 x 4 cm max"
-    )
+    ) {}
 }
 
 data class VehicleType(var bicycling: Boolean, var drinving: Boolean, var walk: Boolean)
