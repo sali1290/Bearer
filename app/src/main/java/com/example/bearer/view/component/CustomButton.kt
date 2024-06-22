@@ -22,7 +22,7 @@ fun CustomButton(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Blue),
+                .background(color = if (enabled) Blue else Color.LightGray),
             contentAlignment = Alignment.Center
         ) {
             Text(text = text, color = Color.White)
