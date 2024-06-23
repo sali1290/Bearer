@@ -1,9 +1,9 @@
 package com.example.bearer.view.screen
 
-import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -36,6 +36,8 @@ import com.google.maps.android.compose.rememberMarkerState
 @Composable
 fun MapScreen() {
     val context = LocalContext.current
+    val parcels = remember { mutableStateListOf<Parcel>() }
+    val parcelViewMode: ParcelViewModel = hiltViewModel()
     val tehran = LatLng(35.7219, 51.3347)
     val cameraPositionState =
         rememberCameraPositionState { position = CameraPosition.fromLatLngZoom(tehran, 15f) }
@@ -43,6 +45,17 @@ fun MapScreen() {
     var step by remember { mutableIntStateOf(0) }
     val origin = rememberMarkerState(position = tehran)
     val destination = rememberMarkerState(position = tehran)
+
+    // Make markers follow center of the user screen
+    LaunchedEffect(key1 = cameraPositionState.position) {
+        if (step == 0) {
+            origin.position = cameraPositionState.position.target
+            destination.position = cameraPositionState.position.target
+        }
+
+        if (step == 1)
+            destination.position = cameraPositionState.position.target
+    }
 
     GoogleMap(
         modifier = Modifier.fillMaxSize(),
@@ -89,8 +102,6 @@ fun MapScreen() {
             Polyline(points = listOf(origin.position, destination.position))
         }
     }
-    val parcels = remember { mutableStateListOf<Parcel>() }
-    val parcelViewMode: ParcelViewModel = hiltViewModel()
     AnimatedContent(targetState = step, label = "Menus") { targetState ->
         when (targetState) {
             0 -> OriginMenu(onCurrentLocationClickListener = {
@@ -118,7 +129,7 @@ fun MapScreen() {
                         parcels = parcels,
                         isNextButtonEnabled = true,
                         onBackClickListener = { step-- },
-                        onNextClickListener = { parcelViewMode.getParcels(parcels) })
+                        onNextClickListener = { /*TODO*/ })
                 } else {
                     ProgressIndicator()
                 }
