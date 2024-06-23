@@ -2,21 +2,27 @@ package com.example.bearer.view.screen
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bearer.R
+import com.example.bearer.model.dto.Parcel
 import com.example.bearer.view.component.CustomMarker
 import com.example.bearer.view.component.DestinationMenu
 import com.example.bearer.view.component.OriginMenu
 import com.example.bearer.view.component.ParcelTypeMenu
+import com.example.bearer.view.component.ProgressIndicator
 import com.example.bearer.view.utils.calculateMiddlePosition
 import com.example.bearer.view.utils.getUserCurrentLocation
+import com.example.bearer.viewmodel.ParcelViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
@@ -83,7 +89,8 @@ fun MapScreen() {
             Polyline(points = listOf(origin.position, destination.position))
         }
     }
-
+    val parcels = remember { mutableStateListOf<Parcel>() }
+    val parcelViewMode: ParcelViewModel = hiltViewModel()
     AnimatedContent(targetState = step, label = "Menus") { targetState ->
         when (targetState) {
             0 -> OriginMenu(onCurrentLocationClickListener = {
@@ -99,14 +106,22 @@ fun MapScreen() {
                         cameraPositionState
                     )
                 },
-                onConfirmLocationClickListener = { step++ }
+                onConfirmLocationClickListener = {
+                    parcelViewMode.getParcels(parcels)
+                    step++
+                }
             )
 
             2 -> {
-                ParcelTypeMenu(
-                    isNextButtonEnabled = false,
-                    onBackClickListener = { step-- },
-                    onNextClickListener = { /* Todo */ })
+                if (parcels.isNotEmpty()) {
+                    ParcelTypeMenu(
+                        parcels = parcels,
+                        isNextButtonEnabled = true,
+                        onBackClickListener = { step-- },
+                        onNextClickListener = { parcelViewMode.getParcels(parcels) })
+                } else {
+                    ProgressIndicator()
+                }
             }
         }
     }
