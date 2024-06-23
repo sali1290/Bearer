@@ -26,9 +26,14 @@ fun getUserCurrentLocation(
         Priority.PRIORITY_HIGH_ACCURACY,
         CancellationTokenSource().token
     ).addOnSuccessListener {
-        currentLocation.position = LatLng(it.latitude, it.longitude)
-        cameraPositionState.position =
-            CameraPosition.fromLatLngZoom(LatLng(it.latitude, it.longitude), 15f)
+        try {
+            currentLocation.position = LatLng(it.latitude, it.longitude)
+            cameraPositionState.position =
+                CameraPosition.fromLatLngZoom(LatLng(it.latitude, it.longitude), 15f)
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(context, "Make sure your GPS is on", Toast.LENGTH_LONG)
+                .show()
+        }
     }.addOnFailureListener { exception ->
         Toast.makeText(
             context,
