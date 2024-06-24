@@ -20,6 +20,7 @@ import com.example.bearer.view.component.CustomMarker
 import com.example.bearer.view.component.DestinationMenu
 import com.example.bearer.view.component.OriginMenu
 import com.example.bearer.view.component.ParcelTypeMenu
+import com.example.bearer.view.component.TransportMenu
 import com.example.bearer.view.utils.calculateMiddlePosition
 import com.example.bearer.view.utils.getUserCurrentLocation
 import com.example.bearer.viewmodel.ParcelViewModel
@@ -132,7 +133,14 @@ fun MapScreen() {
                     onItemClickListener = { selectedItem ->
                         isNextButtonEnabled = selectedItem != -1
                     },
-                    onNextClickListener = { /*TODO*/ })
+                    onNextClickListener = { step++ })
+            }
+
+            3 -> {
+                TransportMenu(
+                    onBackClickListener = { step-- },
+                    onConfirmTransportClickListener = {}
+                )
             }
         }
     }
