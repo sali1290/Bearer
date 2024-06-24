@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,6 +33,7 @@ fun ParcelTypeMenu(
     parcels: SnapshotStateList<Parcel>,
     onBackClickListener: () -> Unit,
     onNextClickListener: () -> Unit,
+    onItemClickListener: (Int) -> Unit,
     isNextButtonEnabled: Boolean
 ) {
     var selectedItem by remember { mutableIntStateOf(-1) }
@@ -54,21 +56,34 @@ fun ParcelTypeMenu(
                     color = Color.White,
                 )
             }
-            LazyColumn(
-                modifier = Modifier
-                    .weight(0.8f)
-                    .background(color = DarkPurple)
-            ) {
-                itemsIndexed(parcels) { index, item ->
-                    ParcelItem(
-                        imageUrl = "",
-                        title = item.type,
-                        weight = "${item.minWeight} kg - ${item.maxWeight} kg",
-                        description = item.description,
-                        selected = selectedItem == index
-                    ) {
-                        selectedItem = index
+            if (parcels.isNotEmpty()) {
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(0.8f)
+                        .background(color = DarkPurple)
+                ) {
+                    itemsIndexed(parcels) { index, item ->
+                        ParcelItem(
+                            imageUrl = "",
+                            title = item.type,
+                            weight = "${item.minWeight} kg - ${item.maxWeight} kg",
+                            description = item.description,
+                            selected = selectedItem == index
+                        ) {
+                            selectedItem = index
+                            onItemClickListener(selectedItem)
+                        }
                     }
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(0.8f)
+                        .background(color = DarkPurple),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
             }
             Row(
@@ -84,7 +99,7 @@ fun ParcelTypeMenu(
                     text = "Back",
                     modifier = Modifier
                         .fillMaxWidth(0.2f)
-                        .fillMaxHeight(0.7f),
+                        .fillMaxHeight(0.83f),
                     onClick = onBackClickListener
                 )
                 Spacer(modifier = Modifier.padding(15.dp))
@@ -92,7 +107,7 @@ fun ParcelTypeMenu(
                     text = "Next",
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
-                        .fillMaxHeight(0.7f),
+                        .fillMaxHeight(0.83f),
                     enabled = isNextButtonEnabled,
                     onClick = onNextClickListener
                 )

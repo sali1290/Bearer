@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -19,7 +20,6 @@ import com.example.bearer.view.component.CustomMarker
 import com.example.bearer.view.component.DestinationMenu
 import com.example.bearer.view.component.OriginMenu
 import com.example.bearer.view.component.ParcelTypeMenu
-import com.example.bearer.view.component.ProgressIndicator
 import com.example.bearer.view.utils.calculateMiddlePosition
 import com.example.bearer.view.utils.getUserCurrentLocation
 import com.example.bearer.viewmodel.ParcelViewModel
@@ -124,15 +124,15 @@ fun MapScreen() {
             )
 
             2 -> {
-                if (parcels.isNotEmpty()) {
-                    ParcelTypeMenu(
-                        parcels = parcels,
-                        isNextButtonEnabled = true,
-                        onBackClickListener = { step-- },
-                        onNextClickListener = { /*TODO*/ })
-                } else {
-                    ProgressIndicator()
-                }
+                var isNextButtonEnabled by remember { mutableStateOf(false) }
+                ParcelTypeMenu(
+                    parcels = parcels,
+                    isNextButtonEnabled = true,
+                    onBackClickListener = { step-- },
+                    onItemClickListener = { selectedItem ->
+                        isNextButtonEnabled = selectedItem != -1
+                    },
+                    onNextClickListener = { /*TODO*/ })
             }
         }
     }
