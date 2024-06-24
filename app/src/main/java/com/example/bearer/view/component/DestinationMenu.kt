@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.bearer.R
 import com.example.bearer.view.theme.Blue
@@ -39,13 +40,13 @@ fun DestinationMenu(
             verticalAlignment = Alignment.CenterVertically
         ) {
             CustomButton(
-                text = "Back",
+                text = stringResource(id = R.string.back),
                 modifier = Modifier.fillMaxWidth(0.25f),
                 onClick = onBackClickListener
             )
             Spacer(modifier = Modifier.padding(5.dp))
             CustomButton(
-                text = "Choose destination",
+                text = stringResource(R.string.choose_destination),
                 modifier = Modifier.fillMaxWidth(0.80f),
                 onClick = onConfirmLocationClickListener
             )

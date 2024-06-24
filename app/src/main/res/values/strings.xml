@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Bearer</string>
+    <string name="choose_origin">Choose origin</string>
+    <string name="back">Back</string>
+    <string name="choose_destination">Choose destination</string>
+    <string name="next">Next</string>
+    <string name="choose_the_parcel_type">Choose the parcel type</string>
 </resources>

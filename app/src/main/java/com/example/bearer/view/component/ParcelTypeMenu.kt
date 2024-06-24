@@ -23,7 +23,9 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.bearer.R
 import com.example.bearer.model.dto.Parcel
 import com.example.bearer.view.theme.DarkPurple
 import com.example.bearer.view.theme.LightPurple
@@ -52,7 +54,7 @@ fun ParcelTypeMenu(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Choose the parcel type",
+                    text = stringResource(R.string.choose_the_parcel_type),
                     color = Color.White,
                 )
             }
@@ -96,7 +98,7 @@ fun ParcelTypeMenu(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CustomButton(
-                    text = "Back",
+                    text = stringResource(R.string.back),
                     modifier = Modifier
                         .fillMaxWidth(0.2f)
                         .fillMaxHeight(0.83f),
@@ -104,7 +106,7 @@ fun ParcelTypeMenu(
                 )
                 Spacer(modifier = Modifier.padding(15.dp))
                 CustomButton(
-                    text = "Next",
+                    text = stringResource(R.string.next),
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .fillMaxHeight(0.83f),
