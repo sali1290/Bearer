@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.example.bearer.view.theme.Blue
 
 @Composable
-fun TransportItem(imageId: Int) {
+fun TransportItem(imageId: Int, price: String, time: String) {
 
     Column(
         modifier = Modifier
@@ -36,8 +36,8 @@ fun TransportItem(imageId: Int) {
             modifier = Modifier.weight(0.50f)
         )
         Spacer(modifier = Modifier.height(5.dp))
-        Text(text = "12.0$ - 18.0$", color = Color.White, modifier = Modifier.weight(0.25f))
+        Text(text = price, color = Color.White, modifier = Modifier.weight(0.25f))
         Spacer(modifier = Modifier.height(5.dp))
-        Text(text = "15 - 20 min", color = Color.White, modifier = Modifier.weight(0.25f))
+        Text(text = time, color = Color.White, modifier = Modifier.weight(0.25f))
     }
 }

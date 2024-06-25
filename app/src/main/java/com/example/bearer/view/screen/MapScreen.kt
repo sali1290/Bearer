@@ -1,5 +1,7 @@
 package com.example.bearer.view.screen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -16,16 +18,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.bearer.R
 import com.example.bearer.model.dto.Parcel
+import com.example.bearer.model.dto.PriceRequest
+import com.example.bearer.model.dto.PriceResponse
 import com.example.bearer.view.component.CustomMarker
 import com.example.bearer.view.component.DestinationMenu
 import com.example.bearer.view.component.OriginMenu
 import com.example.bearer.view.component.ParcelTypeMenu
 import com.example.bearer.view.component.TransportMenu
 import com.example.bearer.view.utils.calculateMiddlePosition
+import com.example.bearer.view.utils.convertPriceRequestToHasMap
 import com.example.bearer.view.utils.getUserCurrentLocation
 import com.example.bearer.viewmodel.ParcelViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.Firebase
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.functions
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapType
@@ -36,8 +44,10 @@ import com.google.maps.android.compose.rememberMarkerState
 
 @Composable
 fun MapScreen() {
+    val functions: FirebaseFunctions = Firebase.functions
     val context = LocalContext.current
     val parcels = remember { mutableStateListOf<Parcel>() }
+    var priceResponse by remember { mutableStateOf<PriceResponse?>(null) }
     val parcelViewMode: ParcelViewModel = hiltViewModel()
     val tehran = LatLng(35.7219, 51.3347)
     val cameraPositionState =
@@ -46,7 +56,7 @@ fun MapScreen() {
     var step by remember { mutableIntStateOf(0) }
     val origin = rememberMarkerState(position = tehran)
     val destination = rememberMarkerState(position = tehran)
-
+    var parcelIndex by remember { mutableIntStateOf(-1) }
     // Make markers follow center of the user screen
     LaunchedEffect(key1 = cameraPositionState.position) {
         if (step == 0) {
@@ -125,19 +135,70 @@ fun MapScreen() {
             )
 
             2 -> {
-                var isNextButtonEnabled by remember { mutableStateOf(false) }
                 ParcelTypeMenu(
                     parcels = parcels,
-                    isNextButtonEnabled = isNextButtonEnabled,
+                    isNextButtonEnabled = parcelIndex != -1,
                     onBackClickListener = { step-- },
                     onItemClickListener = { selectedItem ->
-                        isNextButtonEnabled = selectedItem != -1
+                        parcelIndex = selectedItem
                     },
-                    onNextClickListener = { step++ })
+                    onNextClickListener = {
+                        functions
+                            .getHttpsCallable("pricing")
+                            .call(
+                                convertPriceRequestToHasMap(
+                                    PriceRequest(
+                                        origin = origin.position,
+                                        destination = destination.position,
+                                        vehicleType = parcels[parcelIndex].vehicleType,
+                                        description = parcels[parcelIndex].description,
+                                        minWeight = parcels[parcelIndex].minWeight,
+                                        maxWeight = parcels[parcelIndex].maxWeight,
+                                        type = parcels[parcelIndex].type
+                                    )
+                                )
+                            )
+                            .addOnSuccessListener {
+                                // Return NullPointerException
+//                                priceResponse = convertHttpResponseToPriceResponse(it)
+                                Log.d("function success", priceResponse.toString())
+                            }
+                            .addOnFailureListener {
+                                Log.d("function", it.message.toString())
+                            }
+                    })
+
+                // Handle pricing scenarios
+                LaunchedEffect(key1 = priceResponse) {
+                    priceResponse?.let {
+                        when (it.code) {
+                            201 -> {
+                                Toast.makeText(
+                                    context,
+                                    "destination distance limit exceeded - max is 35km or 75min",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+                            400 -> {
+                                Toast.makeText(
+                                    context,
+                                    "something went wrong",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+                            200 -> {
+                                step++
+                            }
+                        }
+                    }
+                }
             }
 
             3 -> {
                 TransportMenu(
+                    priceResponse = priceResponse,
                     onBackClickListener = { step-- },
                     onConfirmTransportClickListener = {}
                 )

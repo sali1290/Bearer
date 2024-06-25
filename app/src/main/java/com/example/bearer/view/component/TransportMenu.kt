@@ -20,10 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.bearer.R
+import com.example.bearer.model.dto.PriceResponse
 import com.example.bearer.view.theme.Purple
 
 @Composable
 fun TransportMenu(
+    priceResponse: PriceResponse?,
     onBackClickListener: () -> Unit,
     onConfirmTransportClickListener: () -> Unit
 ) {
@@ -40,11 +42,23 @@ fun TransportMenu(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Row(modifier = Modifier.horizontalScroll(state = rememberScrollState())) {
-                TransportItem(imageId = R.drawable.motorcycle)
+                TransportItem(
+                    imageId = R.drawable.motorcycle,
+                    price = priceResponse?.riding?.price ?: "",
+                    time = priceResponse?.riding?.time ?: ""
+                )
                 Spacer(modifier = Modifier.width(10.dp))
-                TransportItem(imageId = R.drawable.bike)
+                TransportItem(
+                    imageId = R.drawable.bike,
+                    price = priceResponse?.cycling?.price ?: "",
+                    time = priceResponse?.cycling?.time ?: ""
+                )
                 Spacer(modifier = Modifier.width(10.dp))
-                TransportItem(imageId = R.drawable.walk)
+                TransportItem(
+                    imageId = R.drawable.walk,
+                    price = priceResponse?.walking?.price ?: "",
+                    time = priceResponse?.walking?.time ?: ""
+                )
             }
 
             Spacer(modifier = Modifier.height(10.dp))
