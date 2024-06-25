@@ -128,7 +128,7 @@ fun MapScreen() {
                 var isNextButtonEnabled by remember { mutableStateOf(false) }
                 ParcelTypeMenu(
                     parcels = parcels,
-                    isNextButtonEnabled = true,
+                    isNextButtonEnabled = isNextButtonEnabled,
                     onBackClickListener = { step-- },
                     onItemClickListener = { selectedItem ->
                         isNextButtonEnabled = selectedItem != -1

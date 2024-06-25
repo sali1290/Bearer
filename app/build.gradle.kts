@@ -91,4 +91,7 @@ dependencies {
     implementation(libs.play.services.location)
 
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
+
+    implementation(libs.coil)
 }

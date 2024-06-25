@@ -39,7 +39,6 @@ fun ParcelTypeMenu(
     isNextButtonEnabled: Boolean
 ) {
     var selectedItem by remember { mutableIntStateOf(-1) }
-
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomCenter) {
         Column(
             modifier = Modifier
@@ -66,7 +65,7 @@ fun ParcelTypeMenu(
                 ) {
                     itemsIndexed(parcels) { index, item ->
                         ParcelItem(
-                            imageUrl = "",
+                            imageUrl = item.imageUrl,
                             title = item.type,
                             weight = "${item.minWeight} kg - ${item.maxWeight} kg",
                             description = item.description,
