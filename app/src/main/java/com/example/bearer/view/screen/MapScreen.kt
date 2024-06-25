@@ -161,6 +161,7 @@ fun MapScreen() {
                             .addOnSuccessListener {
                                 // Return NullPointerException
 //                                priceResponse = convertHttpResponseToPriceResponse(it)
+                                step++
                                 Log.d("function success", priceResponse.toString())
                             }
                             .addOnFailureListener {
