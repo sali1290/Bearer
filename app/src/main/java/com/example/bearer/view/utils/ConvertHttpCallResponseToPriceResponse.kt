@@ -4,7 +4,7 @@ import com.example.bearer.model.dto.PriceResponse
 import com.example.bearer.model.dto.TransportInfo
 import com.google.firebase.functions.HttpsCallableResult
 
-fun convertHttpResponseToPriceResponse(httpsCallableResult: HttpsCallableResult): PriceResponse {
+fun convertHttpCallResponseToPriceResponse(httpsCallableResult: HttpsCallableResult): PriceResponse {
     val hashMap = httpsCallableResult.data as HashMap<*, *>
     return PriceResponse(
         status = hashMap["status"].toString(),
