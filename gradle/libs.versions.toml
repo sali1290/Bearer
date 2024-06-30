@@ -1,8 +1,10 @@
 [versions]
 agp = "8.5.0"
 coil = "2.6.0"
+firebaseAppcheckSafetynet = "16.1.2"
 firebaseStorage = "21.0.0"
 firestoreVersion = "25.0.0"
+googleFirebaseAppcheckPlayintegrityVersion = "18.0.0"
 hiltNavigationCompose = "1.2.0"
 kotlin = "2.0.0"
 coreKtx = "1.13.1"
@@ -21,6 +23,8 @@ googleService = "4.4.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+com-google-firebase-firebase-appcheck-playintegrity2 = { module = "com.google.firebase:firebase-appcheck-playintegrity", version.ref = "googleFirebaseAppcheckPlayintegrityVersion" }
+firebase-appcheck-safetynet = { module = "com.google.firebase:firebase-appcheck-safetynet", version.ref = "firebaseAppcheckSafetynet" }
 firebase-functions = { module = "com.google.firebase:firebase-functions", version.ref = "firebaseStorage" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

@@ -93,6 +93,8 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.functions)
+    implementation(libs.com.google.firebase.firebase.appcheck.playintegrity2)
+    implementation(libs.firebase.appcheck.safetynet)
 
     implementation(libs.coil)
 }
