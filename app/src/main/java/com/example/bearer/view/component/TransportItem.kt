@@ -2,6 +2,8 @@ package com.example.bearer.view.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,13 +21,26 @@ import androidx.compose.ui.unit.dp
 import com.example.bearer.view.theme.Blue
 
 @Composable
-fun TransportItem(imageId: Int, price: String, time: String) {
-
+fun TransportItem(
+    imageId: Int,
+    price: String,
+    time: String,
+    selected: Boolean = false,
+    onItemClicked: () -> Unit
+) {
     Column(
         modifier = Modifier
             .width(120.dp)
             .height(120.dp)
-            .background(color = Blue, shape = RoundedCornerShape(size = 20.dp))
+            .background(
+                color = if (price.isEmpty() || time.isEmpty()) Color.LightGray else Blue,
+                shape = RoundedCornerShape(size = 20.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = if (selected) Color.LightGray else Color.Transparent
+            )
+            .clickable(enabled = !(price.isEmpty() || time.isEmpty())) { onItemClicked() }
             .padding(5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween

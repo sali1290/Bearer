@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import com.example.bearer.model.dto.PriceRequest
 import com.example.bearer.model.dto.PriceResponse
+import com.example.bearer.model.utils.convertHttpCallResponseToPriceResponse
 import com.example.bearer.view.utils.convertPriceRequestToHasMap
 import com.google.firebase.functions.FirebaseFunctions
 import javax.inject.Inject
@@ -18,10 +19,15 @@ class PriceRepoImpl @Inject constructor() : PriceRepo {
                 result
             }
             .addOnFailureListener { exception ->
-                Log.d("function answer", exception.message ?: "oops")
+                Log.d("function answer", exception.message ?: "Something went wrong.")
             }
             .addOnSuccessListener { response ->
-                Log.d("function answer", response.toString())
+                try {
+                    Log.d("function answer", response.toString())
+                    priceResponse.value = convertHttpCallResponseToPriceResponse(response)
+                } catch (exception: Exception) {
+                    Log.d("function answer", exception.message ?: "Something went wrong.")
+                }
             }
     }
 }

@@ -12,12 +12,4 @@ object Keys {
     const val BICYCLING = "bicycling"
     const val WALKING = "walking"
 
-    // For previous google-service.json
-//    const val description = "description"
-//    const val imageUrl = "imageUrl"
-//    const val maxWeight = "maxWeight"
-//    const val minWeight = "minWeight"
-//    const val type = "type"
-//    const val vehicleType = "vehicle_type"
-
 }
